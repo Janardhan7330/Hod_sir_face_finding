@@ -16,7 +16,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>
 
 export function LoginPage() {
-  const { login, isLoggingIn } = useAuth()
+  const { isLoggingIn } = useAuth()
   const [error, setError] = useState('')
 
   const {

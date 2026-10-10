@@ -1,9 +1,9 @@
 export function useAuth() {
   const authUser = typeof window !== 'undefined' ? localStorage.getItem('auth_user') : null
 
-  const user = authUser ? { email: authUser, role: 'admin' } : null;
+  const user = authUser ? { email: authUser, role: 'admin', created_at: new Date().toISOString() } : null;
 
-  const login = async (data: any) => {
+  const login = async (_data: any) => {
     // handled in LoginPage directly now
   }
 
