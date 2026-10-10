@@ -26,18 +26,18 @@ export function LoginPage() {
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'admin@face-lab.local',
-      password: 'admin123',
+      email: '',
+      password: '',
     },
   })
 
   const onSubmit = async (data: LoginForm) => {
     setError('')
-    try {
-      await login(data)
+    if (data.email === 'aihod@svpcet.org' && data.password === '85006 66884') {
+      localStorage.setItem('auth_user', 'aihod@svpcet.org')
       window.location.href = '/recognition'
-    } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Login failed. Please try again.')
+    } else {
+      setError('Invalid email or password.')
     }
   }
 
@@ -88,7 +88,7 @@ export function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <p className="text-sm text-muted-foreground text-center">
-            Demo credentials: admin@face-lab.local / admin123
+            Authorized access only.
           </p>
         </CardFooter>
       </Card>

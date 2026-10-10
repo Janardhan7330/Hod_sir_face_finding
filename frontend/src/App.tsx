@@ -5,6 +5,15 @@ import { SettingsPage } from '@/pages/SettingsPage'
 import { PrivacyPage } from '@/pages/PrivacyPage'
 import { OSINTConceptsPage } from '@/pages/OSINTConceptsPage'
 import { DatasetUploadPage } from '@/pages/DatasetUploadPage'
+import { LoginPage } from '@/pages/LoginPage'
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const isAuthenticated = localStorage.getItem('auth_user') === 'aihod@svpcet.org';
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
 
 function AppLayout() {
   return (
@@ -20,7 +29,8 @@ function AppLayout() {
 function AppRoutes() {
   return (
     <Routes>
-      <Route element={<AppLayout />}>
+      <Route path="/login" element={<LoginPage />} />
+      <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
         <Route index element={<Navigate to="/recognition" replace />} />
         <Route path="dataset-upload" element={<DatasetUploadPage />} />
         <Route path="recognition" element={<RecognitionPage />} />

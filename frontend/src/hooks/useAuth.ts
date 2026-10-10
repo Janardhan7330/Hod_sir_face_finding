@@ -1,49 +1,24 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { authService } from '../services/auth'
-import type { User } from '../services/auth'
-
 export function useAuth() {
-  const queryClient = useQueryClient()
-  const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null
+  const authUser = typeof window !== 'undefined' ? localStorage.getItem('auth_user') : null
 
-  const { data: user, isLoading } = useQuery<User | null>({
-    queryKey: ['auth', 'me'],
-    queryFn: async () => {
-      if (!localStorage.getItem('access_token')) {
-        return null
-      }
-      try {
-        return await authService.getMe()
-      } catch {
-        return null
-      }
-    },
-    enabled: !!token,
-    retry: false,
-    staleTime: 1000 * 60 * 5,
-  })
+  const user = authUser ? { email: authUser, role: 'admin' } : null;
 
-  const loginMutation = useMutation({
-    mutationFn: authService.login,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auth', 'me'] })
-    },
-  })
+  const login = async (data: any) => {
+    // handled in LoginPage directly now
+  }
 
-  const logoutMutation = useMutation({
-    mutationFn: authService.logout,
-    onSuccess: () => {
-      queryClient.setQueryData(['auth', 'me'], null)
-    },
-  })
+  const logout = async () => {
+    localStorage.removeItem('auth_user')
+    window.location.href = '/login'
+  }
 
   return {
     user,
-    isLoading,
+    isLoading: false,
     isAuthenticated: !!user,
-    login: loginMutation.mutateAsync,
-    logout: logoutMutation.mutateAsync,
-    isLoggingIn: loginMutation.isPending,
-    isLoggingOut: logoutMutation.isPending,
+    login,
+    logout,
+    isLoggingIn: false,
+    isLoggingOut: false,
   }
 }
