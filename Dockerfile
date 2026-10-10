@@ -11,14 +11,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install UV for fast package management
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Copy dependency files from the backend folder
-COPY backend/pyproject.toml backend/uv.lock* ./
+# Copy application code from backend folder
+COPY backend/ .
 
 # Install dependencies
 RUN uv sync --frozen --no-dev
-
-# Copy application code from backend folder
-COPY backend/ .
 
 # Non-root user
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
