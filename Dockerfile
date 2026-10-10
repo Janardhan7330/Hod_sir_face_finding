@@ -4,7 +4,7 @@ WORKDIR /app
 
 # System dependencies for OpenCV, ONNX Runtime
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libglib2.0-0 libsm6 libxext6 libxrender-dev libgl1-mesa-glx \
+    libglib2.0-0 libsm6 libxext6 libxrender-dev libgl1 \
     libgomp1 && \
     rm -rf /var/lib/apt/lists/*
 
