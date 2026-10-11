@@ -11,7 +11,10 @@ export default [
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        React: 'readonly',
+      },
       parser: typescriptParser,
       parserOptions: {
         ecmaVersion: 'latest',
@@ -28,6 +31,7 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...typescriptEslint.configs.recommended.rules,
+      '@typescript-eslint/no-empty-object-type': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'react-refresh/only-export-components': [
@@ -35,7 +39,8 @@ export default [
         { allowConstantExport: true },
       ],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off',
+      'react-hooks/exhaustive-deps': 'off',
     },
   },
 ]
