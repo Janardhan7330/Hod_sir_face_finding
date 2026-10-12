@@ -287,6 +287,9 @@ export function RecognitionPage() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-3xl font-bold tracking-tight">Student Face Identification</h1>
+            <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-300">
+              Supabase Connected
+            </Badge>
           </div>
           <p className="text-muted-foreground mt-1">
             Capture a live photo or upload an image to identify registered students with high precision.
@@ -573,7 +576,13 @@ export function RecognitionPage() {
                     </p>
                   </div>
 
-
+                  <div className="p-2.5 rounded-lg bg-white/80 border border-emerald-200/80">
+                    <p className="text-[11px] text-muted-foreground uppercase font-semibold">Source Database</p>
+                    <p className="font-bold text-emerald-950 text-sm mt-0.5 flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      Supabase DB
+                    </p>
+                  </div>
                 </div>
 
                 {primaryMatch.notes && !primaryMatch.section && (

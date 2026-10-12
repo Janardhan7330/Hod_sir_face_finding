@@ -21,7 +21,7 @@ export function Header() {
           >
             <Menu className="h-5 w-5" />
           </button>
-          <Link to="/recognition" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <Link to="/dashboard" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
               <svg className="h-5 w-5 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
@@ -32,11 +32,23 @@ export function Header() {
         </div>
 
         <nav className="hidden lg:flex items-center gap-6">
+          <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Dashboard
+          </Link>
           <Link to="/recognition" className="text-sm font-medium text-emerald-600 font-semibold hover:text-emerald-700 transition-colors">
             Live Recognition
           </Link>
+          <Link to="/enrollment" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Enrollment
+          </Link>
           <Link to="/dataset-upload" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Dataset Upload
+          </Link>
+          <Link to="/history" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            History
+          </Link>
+          <Link to="/people" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            People
           </Link>
         </nav>
 
@@ -85,8 +97,12 @@ export function Header() {
 
       {mobileMenuOpen && (
         <div className="lg:hidden border-t px-4 py-4 space-y-2">
-          <a href="/recognition" className="block text-sm font-medium text-muted-foreground hover:text-foreground">Live Recognition</a>
+          <a href="/dashboard" className="block text-sm font-medium text-muted-foreground hover:text-foreground">Dashboard</a>
+          <a href="/enrollment" className="block text-sm font-medium text-muted-foreground hover:text-foreground">Enrollment</a>
           <a href="/dataset-upload" className="block text-sm font-medium text-muted-foreground hover:text-foreground">Dataset Upload</a>
+          <a href="/recognition" className="block text-sm font-medium text-muted-foreground hover:text-foreground">Recognition</a>
+          <a href="/history" className="block text-sm font-medium text-muted-foreground hover:text-foreground">History</a>
+          <a href="/people" className="block text-sm font-medium text-muted-foreground hover:text-foreground">People</a>
         </div>
       )}
     </header>

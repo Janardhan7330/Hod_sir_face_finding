@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useAuth } from '@/hooks/useAuth'
-import { Eye, EyeOff } from 'lucide-react'
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -17,9 +16,8 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>
 
 export function LoginPage() {
-  const { isLoggingIn } = useAuth()
+  const { login, isLoggingIn } = useAuth()
   const [error, setError] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
 
   const {
     register,
@@ -28,18 +26,18 @@ export function LoginPage() {
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'admin@face-lab.local',
+      password: 'admin123',
     },
   })
 
   const onSubmit = async (data: LoginForm) => {
     setError('')
-    if (data.email === 'aihod@svpcet.org' && data.password === '85006 66884') {
-      localStorage.setItem('auth_user', 'aihod@svpcet.org')
+    try {
+      await login(data)
       window.location.href = '/recognition'
-    } else {
-      setError('Invalid email or password.')
+    } catch (err: any) {
+      setError(err.response?.data?.error?.message || 'Login failed. Please try again.')
     }
   }
 
@@ -72,28 +70,13 @@ export function LoginPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  className="pr-10"
-                  {...register('password')}
-                  disabled={isLoggingIn}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                {...register('password')}
+                disabled={isLoggingIn}
+              />
               {errors.password && (
                 <p className="text-sm text-destructive">{errors.password.message}</p>
               )}
@@ -105,7 +88,7 @@ export function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <p className="text-sm text-muted-foreground text-center">
-            Authorized access only.
+            Demo credentials: admin@face-lab.local / admin123
           </p>
         </CardFooter>
       </Card>

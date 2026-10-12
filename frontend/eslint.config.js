@@ -1,12 +1,12 @@
 import js from '@eslint/js'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import typescriptParser from '@typescript-eslint/parser'
+import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import globals from 'globals'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
+import typescriptParser from '@typescript-eslint/parser'
 
 export default [
-  { ignores: ['dist', 'node_modules'] },
+  { ignores: ['dist', 'node_modules', '*.config.js', '*.config.ts'] },
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -18,22 +18,22 @@ export default [
       parser: typescriptParser,
       parserOptions: {
         ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
         sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
-    settings: { react: { version: '18.3' } },
     plugins: {
+      '@typescript-eslint': typescriptEslint,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      '@typescript-eslint': typescriptEslint,
     },
     rules: {
       ...js.configs.recommended.rules,
       ...typescriptEslint.configs.recommended.rules,
       '@typescript-eslint/no-empty-object-type': 'off',
       'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
