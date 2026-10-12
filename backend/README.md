@@ -1,1 +1,3 @@
-# Face Recognition Lab Backend
+# Face Recognition Lab - Backend
+
+Backend service for Face Recognition Lab.
