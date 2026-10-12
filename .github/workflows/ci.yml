@@ -10,7 +10,12 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
+
   lint-backend:
     name: Lint Backend
     runs-on: ubuntu-latest
